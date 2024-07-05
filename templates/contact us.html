@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact us</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body class="font-OverPass">
+    <nav class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 relative z-10">
+        <a href="{{ url_for('user.user_home') }}">
+            <img src="https://i.postimg.cc/nhC8WXpv/image-1.png" alt="logo" class="w-[85px] sm:w-[167px] h-[29px] sm:h-[59px]"/>
+        </a>
+        <button id="nav-toggle" class="block sm:hidden text-customGreen">
+            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 5h16M4 12h16M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <ul id="nav-menu" class="hidden sm:flex flex-col sm:flex-row items-center font-semibold gap-8 sm:gap-8 absolute sm:static top-full left-0 w-full sm:w-auto bg-white sm:bg-transparent sm:space-x-8 sm:px-0 py-4 sm:py-0 shadow-md sm:shadow-none">
+            <li><a href="{{ url_for('sell') }}" class="text-customGreen ">BUY</a></li>
+            <li><a href="{{ url_for('rent') }}" class="text-customGreen ">RENT</a></li>
+            <li><a href="{{ url_for('about') }}" class="text-customGreen ">ABOUT US</a></li>
+            <li><a href="{{ url_for('contact_us') }}" class="text-customGreen underline">CONTACT</a></li>
+            {% if session.get('role') == 'admin' %}
+            <li role="button">
+                <a href="{{ url_for('admin.admin_profile') }}">
+                    <img class="w-[36px] h-[36px] hidden sm:block" src="/static/images/admin.png" alt=""/>
+                </a>
+            </li>
+            {% elif session.get('username') %}
+            <li role="button">
+                {% if session.get('role') == 'admin' %}
+                    <a href="{{ url_for('admin.admin_profile') }}">
+                        <img class="w-[36px] h-[36px] hidden sm:block" src="/static/images/admin.png" alt=""/>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('user.user_profile') }}">
+                        <img class="w-[36px] h-[36px] hidden sm:block" src="{{ url_for('static', filename='uploads/' ~ user_profile_picture) }}" alt=""/>
+                    </a>
+                {% endif %}
+            </li>
+            {% else %}
+            <li role="button" class="bg-customGreen text-white px-2 py-1 rounded">
+                <a href="{{ url_for('login') }}">LOGIN SIGN UP</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <section class="py-[33px] px-[30px] sm:px-[230px]">
+        <h1 class="mb-[20px] text-center font-bold text-3xl text-customGreen">
+            GET IN <span class="underline">TOUCH</span>
+        </h1>
+        <p class="text-center font-semibold">Contact us today to learn more about our services or to schedule a consultation. We look forward to helping you achieve your real estate goals.</p>    
+        
+        
+    </section>
+
+    <script src="/static/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About us</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body class="font-OverPass">
+
+    <nav class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 relative z-10">
+        <a href="{{ url_for('user.user_home') }}">
+            <img src="https://i.postimg.cc/nhC8WXpv/image-1.png" alt="logo" class="w-[85px] sm:w-[167px] h-[29px] sm:h-[59px]"/>
+        </a>
+        <button id="nav-toggle" class="block sm:hidden text-customGreen">
+            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 5h16M4 12h16M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <ul id="nav-menu" class="hidden sm:flex flex-col sm:flex-row items-center font-semibold gap-8 sm:gap-8 absolute sm:static top-full left-0 w-full sm:w-auto bg-white sm:bg-transparent sm:space-x-8 sm:px-0 py-4 sm:py-0 shadow-md sm:shadow-none">
+            <li><a href="{{ url_for('sell') }}" class="text-customGreen ">BUY</a></li>
+            <li><a href="{{ url_for('rent') }}" class="text-customGreen ">RENT</a></li>
+            <li><a href="{{ url_for('about') }}" class="text-customGreen underline">ABOUT US</a></li>
+            <li><a href="{{ url_for('contact_us') }}" class="text-customGreen">CONTACT</a></li>
+            {% if session.get('role') == 'admin' %}
+            <li role="button">
+                <a href="{{ url_for('admin.admin_profile') }}">
+                    <img class="w-[36px] h-[36px] hidden sm:block" src="/static/images/admin.png" alt=""/>
+                </a>
+            </li>
+            {% elif session.get('username') %}
+            <li role="button">
+                {% if session.get('role') == 'admin' %}
+                    <a href="{{ url_for('admin.admin_profile') }}">
+                        <img class="w-[36px] h-[36px] hidden sm:block" src="/static/images/admin.png" alt=""/>
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('user.user_profile') }}">
+                        <img class="w-[36px] h-[36px] hidden sm:block" src="{{ url_for('static', filename='uploads/' ~ user_profile_picture) }}" alt=""/>
+                    </a>
+                {% endif %}
+            </li>
+            {% else %}
+            <li role="button" class="bg-customGreen text-white px-2 py-1 rounded">
+                <a href="{{ url_for('login') }}">LOGIN SIGN UP</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="container grid sm:grid-flow-row md:grid-cols-2 mt-12">
+        <div class="w-full ">
+          <h2 class="font-bold w-[580px] text-primary text-3xl  md:text-4xl ml-12 text-customGreen md:text-[55px] leading-[81px]" >Welcome to  <span class="text-[#0097A9] md:text-[55px] leading-[81px]">HOUSY</span></h2>
+        <p class="light w-[580px] font-semibold h-[226px] mb-8 ml-12 w-80% text-customGreen md:leading-[30px]">At HOUSY we are committed to providing exceptional real estate services to help you find your dream home or the perfect investment property. Whether you are looking to buy, sell, or rent, our team of experienced professionals is here to guide you through every step of the process</p>
+        </div> 
+        <img src="/static/images/Rectangle 125.png " alt="" class="dm:hidden md:ml-7 md:w-[585px] md:h-[280px] rounded-lg">
+
+    </div>
+
+<section class="bg-[#E3FEF7] py-[33px] px-[30px] sm:px-[230px] mt-8">
+    <h1 class="mb-[20px] text-center font-bold text-3xl text-DarkGreen">
+        OUR MISSION
+    </h1>
+    <p class="text-center">Our mission is to deliver top-notch real estate services that exceed our clients' expectations. We strive to create long-lasting relationships based on trust, integrity, and transparency. Our goal is to make your real estate experience as smooth and stress-free as possible.</p>    
+    
+    
+</section>
+      
+<div class="container mx-auto text-center py-16">
+    <h1 class="text-4xl font-bold mb-12">WHAT WE OFFER</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div class="bg-[#E3FEF7] p-8 rounded-lg shadow-md">
+        <div class="flex justify-center mb-4">
+          <img src="/static/images/ri_home-fill_1.webp" alt="Home Sales Icon">
+        </div>
+        <h2 class="text-2xl font-semibold mb-4 text-customGreen">Home Sales</h2>
+        <p>Our extensive listing of homes for sale features a variety of properties to suit different tastes and budgets.</p>
+      </div>
+      <div class="bg-[#E3FEF7] p-8 rounded-lg shadow-md">
+        <div class="flex justify-center mb-4">
+          <img src="/static/images/Group_1.webp" alt="Rentals Icon">
+        </div>
+        <h2 class="text-2xl font-semibold mb-4 text-customGreen">Rentals</h2>
+        <p>If you are looking for a rental property, we offer a wide range of options, from apartments and condos to single-family homes.</p>
+      </div>
+      <div class="bg-[#E3FEF7] p-8 rounded-lg shadow-md">
+        <div class="flex justify-center mb-4">
+          <img src="/static/images/Vector_17.webp" alt="Property Management Icon">
+        </div>
+        <h2 class="text-2xl font-semibold mb-4 text-customGreen">Property Management</h2>
+        <p>We provide comprehensive property management services for landlords and investors</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <h1 class="text-3xl font-bold mb-8 text-customGreen">MEET THE TEAM</h1>
+    <div class="flex justify-center space-x-8">
+        <div class="text-center">
+            <div class="w-24 h-24 bg-gray-300 rounded-full mb-4"></div>
+            <h2 class="text-lg font-semibold">AYOUB</h2>
+            <p class="text-gray-600">WEB DEVELOPER</p>
+        </div>
+        <div class="text-center">
+            <div class="w-24 h-24 bg-gray-300 rounded-full mb-4"></div>
+            <h2 class="text-lg font-semibold">ABDELHADI</h2>
+            <p class="text-gray-600">WEB DEVELOPER</p>
+        </div>
+        <div class="text-center">
+            <div class="w-24 h-24 bg-gray-300 rounded-full mb-4"></div>
+            <h2 class="text-lg font-semibold">ANAS</h2>
+            <p class="text-gray-600">WEB DEVELOPER</p>
+        </div>
+        <div class="text-center">
+            <div class="w-24 h-24 bg-gray-300 rounded-full mb-4"></div>
+            <h2 class="text-lg font-semibold">AMINE</h2>
+            <p class="text-gray-600">WEB DEVELOPER</p>
+        </div>
+    </div>
+
+    <footer class="bg-customGreen">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-5 gap-12 px-6 py-10 mt-20">
+            <div class="md:col-span-2 grid grid-cols-1">
+                <img src="https://i.postimg.cc/FH8vXzG4/image-3-1.png" alt="logo" class="w-24 md:w-[120px] h-auto justify-self-start">
+                <div class="text-white mt-4">
+                    <h1 class="text-lg md:text-xl font-semibold mb-3">About Housy's Recommendations</h1>
+                    <p class="text-sm md:text-base">
+                        Recommendations are based on your location and search activity, such as the homes you've viewed and saved and the filters you've used. We use this information to bring similar homes to your attention, so you don't miss out.
+                    </p>
+                </div>
+                <div class="flex space-x-3 mt-4">
+                    <a href="#"><img src="https://i.postimg.cc/43jxPwjp/entypo-social-facebook.png" class="w-6 h-6 md:w-8 md:h-8"></a>
+                    <a href="#"><img src="https://i.postimg.cc/sfYgPYmZ/mdi-instagram.png" class="w-6 h-6 md:w-8 md:h-8"></a>
+                    <a href="#"><img src="https://i.postimg.cc/kX7XT2YY/prime-twitter.png" class="w-6 h-6 md:w-8 md:h-8"></a>
+                </div>
+            </div>
+    
+            <div class="md:col-span-1">
+                <div class="text-white">
+                    <h1 class="text-lg md:text-xl font-semibold relative mb-2">
+                        <span class="border-b border-white absolute inset-x-0 bottom-0"></span>
+                        Contact
+                    </h1>
+                    <ul class="space-y-1">
+                        <li><a href="#" class="text-sm font-semibold md:text-base">Housy.com Licensing Information</a></li>
+                        <li><a href="#" class="text-sm md:text-base">Agadir Rue Hassan II</a></li>
+                        <li><a href="#" class="text-sm md:text-base">Housy_Agadir@gmail.com</a></li>
+                        <li><a href="#" class="text-sm md:text-base">+212 657 957 12</a></li>
+                        <li><a href="#" class="text-sm md:text-base">+212 657 957 12</a></li>
+                        <li><a href="#" class="text-sm md:text-base">+212 657 957 12</a></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="md:col-span-1">
+                <div class="text-white">
+                    <h1 class="text-lg md:text-xl font-semibold relative mb-2">
+                        <span class="border-b border-white absolute inset-x-0 bottom-0"></span>
+                        About
+                    </h1>
+                    <ul class="space-y-1">
+                        <li><a href="#" class="text-sm font-bold md:text-base">Meet the team</a></li>
+                        <li><a href="#" class="text-sm md:text-base">Pfa Project</a></li>
+                        <li><a href="#" class="text-sm md:text-base">2024 eWA students</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <p class="text-white text-center text-sm mt-6">&copy; 2024 Housy</p>
+    </footer>
+</div>
+
+</body>
+</html>

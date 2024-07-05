@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <title>Housy - FAQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="p-2">
+    <nav
+      class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 relative z-10"
+    >
+      <a href="{{ url_for('user.user_home') }}">
+        <img
+          src="https://i.postimg.cc/nhC8WXpv/image-1.png"
+          alt="logo"
+          class="w-[85px] sm:w-[167px] h-[29px] sm:h-[59px]"
+        />
+      </a>
+      <button id="nav-toggle" class="block sm:hidden text-customGreen">
+        <svg
+          class="h-6 w-6 fill-current"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 5h16M4 12h16M4 19h16"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <ul
+        id="nav-menu"
+        class="hidden sm:flex flex-col sm:flex-row items-center font-semibold gap-8 sm:gap-8 absolute sm:static top-full left-0 w-full sm:w-auto bg-white sm:bg-transparent sm:space-x-8 sm:px-0 py-4 sm:py-0 shadow-md sm:shadow-none"
+      >
+        <li>
+          <a href="{{ url_for('sell') }}" class="text-customGreen">BUY</a>
+        </li>
+        <li>
+          <a href="{{ url_for('rent') }}" class="text-customGreen">RENT</a>
+        </li>
+        <li>
+          <a href="{{ url_for('about') }}" class="text-customGreen">ABOUT US</a>
+        </li>
+        <li>
+          <a href="{{ url_for('contact_us') }}" class="text-customGreen"
+            >CONTACT</a
+          >
+        </li>
+        <li role="button">
+          {% if session.get('role') == 'admin' %}
+          <a href="{{ url_for('admin.admin_profile') }}">
+            <img
+              class="w-[36px] h-[36px] hidden rounded-full sm:block"
+              src="/static/images/admin.png"
+              alt=""
+            />
+          </a>
+          {% else %}
+          <a href="{{ url_for('user.user_profile') }}">
+            <img
+              class="w-[36px] h-[36px] hidden rounded-full sm:block"
+              src="{{ url_for('static', filename='uploads/' ~ user_profile_picture) }}"
+              alt=""
+            />
+          </a>
+          {% endif %}
+        </li>
+      </ul>
+    </nav>
+
+    <div
+      class="min-h-screen border border-black bg-white flex flex-col sm:flex-row"
+    >
+      <div class="w-full sm:w-1/4 p-5 bg-gray-100">
+        <div class="mb-10 flex items-center">
+          <img
+            src="{{ url_for('static', filename='uploads/' ~ user_profile_picture) }}"
+            alt="Profile Picture"
+            class="rounded-full w-20 h-20 mb-3"
+          />
+          <div class="ml-3">
+            <h2 class="text-gray-900 text-xl font-semibold sm:text-left">
+              {{ user_full_name }}
+            </h2>
+            <p class="text-[#868686] font-extralight sm:text-left">
+              {{ user_email }}
+            </p>
+          </div>
+        </div>
+        <div class="space-y-6 font-semibold text-lg">
+          <a
+            href="{{ url_for('user.saved_listings') }}"
+            class="block text-gray-700 p-3"
+            >Saved posts</a
+          >
+          <a
+            href="{{ url_for('faq') }}"
+            class="block text-gray-700 bg-[#D9D9D9] p-3 rounded-md"
+            >FAQ</a
+          >
+          <a
+            href="{{ url_for('contactsupport') }}"
+            class="block text-gray-700 p-3"
+            >Contact support</a
+          >
+          <a href="{{ url_for('setting') }}" class="block text-gray-700 p-3"
+            >Setting</a
+          >
+          <a
+            href="{{ url_for('logout') }}"
+            class="block text-gray-700 p-3 rounded-md"
+            >Log out</a
+          >
+        </div>
+      </div>
+
+      <div class="w-full sm:w-3/4 p-[4px] sm:p-5">
+        <div class="container mx-auto pt-[20px]">
+          <h1
+            class="font-bold text-[#003C43] text-3xl mb-5 text-center sm:text-left inline-block border-b-4 pb-3 border-[#D9D9D9]"
+          >
+            FAQ
+          </h1>
+          <div class="bg-[#F5F5F5] rounded-lg p-2 sm:p-8">
+            <div class="divide-y-2 divide-gray-300 space-y-[20px]">
+              <div>
+                <h2 class="text-xl font-semibold mb-2 cursor-pointer question">
+                  What is the process for buying a property?
+                </h2>
+                <p class="hidden text-gray-600 text-sm mb-2 answer">
+                  The process for buying a property typically involves the
+                  following steps:<br />
+                  1. Get Pre-Approved for a Mortgage: Secure pre-approval from a
+                  lender to understand your budget.<br />
+                  2. Search for Properties: Use our search tool to find
+                  properties that meet your criteria. <br />
+                  3. Make an Offer: Once you find a property you like, submit an
+                  offer through your real estate agent.<br />
+                  4. Conduct a Home Inspection: Schedule an inspection to check
+                  for any potential issues with the property. <br />
+                  5. Close the Deal: Finalize the purchase by signing the
+                  necessary documents and transferring funds.
+                </p>
+              </div>
+              <div>
+                <h2 class="text-xl font-semibold mb-2 cursor-pointer question">
+                  What documents are needed to rent a property?
+                </h2>
+                <p class="hidden text-gray-600 text-sm mb-2 answer">
+                  When renting a property, you typically need the following
+                  documents: <br />
+                  1. Identification: A valid ID, such as a driver's license or
+                  passport. <br />
+                  2. Proof of Income: Recent pay stubs, tax returns, or a letter
+                  from your employer.<br />
+                  3. Credit Report: A current credit report to assess your
+                  creditworthiness. <br />
+                  4. Rental History: Contact information for previous landlords
+                  or rental references. <br />
+                  5. Application Form: A completed rental application form
+                  provided by the landlord or property manager.
+                </p>
+              </div>
+              <div>
+                <h2 class="text-xl font-semibold mb-2 cursor-pointer question">
+                  How do I schedule a property viewing?
+                </h2>
+                <p class="hidden text-gray-600 text-sm mb-2 answer">
+                  To schedule a property viewing, follow these steps: <br />
+                  1. Find a Property: Use our website to search for properties
+                  you are interested in. <br />
+                  2. Request a Viewing: Click on the property listing and use
+                  the 'Schedule Viewing' button.<br />
+                  3. Choose a Date and Time: Select a convenient date and time
+                  from the available slots. <br />
+                  4. Confirm Appointment: You will receive a confirmation email
+                  with the details of your appointment. <br />
+                  5. Attend Viewing: Visit the property at the scheduled time
+                  and ask any questions you may have.
+                </p>
+              </div>
+              <div>
+                <h2 class="text-xl font-semibold mb-2 cursor-pointer question">
+                  What are the costs associated with buying a home?
+                </h2>
+                <p class="hidden text-gray-600 text-sm mb-2 answer">
+                  When buying a home, you should consider the following
+                  costs:<br />
+                  1. Down Payment: A percentage of the home's purchase price,
+                  typically ranging from 5% to 20%. <br />
+                  2. Closing Costs: Fees for services required to complete the
+                  transaction, including legal fees, title insurance, and
+                  inspection fees.<br />
+                  3. Home Inspection: The cost of hiring a professional to
+                  inspect the property for any issues. <br />
+                  4. Property Taxes: Ongoing taxes paid to the local government
+                  based on the property's assessed value. <br />
+                  5. Homeowners Insurance: Insurance to protect your home and
+                  personal property against damage or loss.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/index.js"></script>
+  </body>
+</html>

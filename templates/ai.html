@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <title>HousY - How</title>
+</head>
+<body>
+    <nav
+      class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 relative z-10"
+    >
+    <a href="{{url_for('home')}}">
+        <img
+          src="https://i.postimg.cc/nhC8WXpv/image-1.png"
+          alt="logo"
+          class="w-[85px] sm:w-[167px] h-[29px] sm:h-[59px]"
+        /> </a>
+      <button id="nav-toggle" class="block sm:hidden text-customGreen">
+        <svg
+          class="h-6 w-6 fill-current"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 5h16M4 12h16M4 19h16"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <ul
+        id="nav-menu"
+        class="hidden sm:flex flex-col sm:flex-row items-center font-semibold gap-8 sm:gap-8 absolute sm:static top-full left-0 w-full sm:w-auto bg-white sm:bg-transparent sm:space-x-8 sm:px-0 py-4 sm:py-0 shadow-md sm:shadow-none"
+      >
+      <li><a href="{{url_for('sell')}}" class="text-customGreen">BUY</a></li>
+      <li><a href="{{url_for('rent')}}" class="text-customGreen underline">RENT</a></li>
+      <li><a href="{{url_for('about')}}" class="text-customGreen">ABOUT US</a></li>
+      <li><a href="{{url_for('contact_us')}}" class="text-customGreen">CONTACT</a></li>
+      </ul>
+    </nav>
+
+    <div class="min-h-screen flex items-center justify-center bg-gray-100">
+        <section class="text-center">
+            <h1 class="text-3xl text-customGreen font-bold mb-2">How It Works!</h1>
+            <img src="https://i.postimg.cc/vmy4j9dd/Group-5.png" alt="">
+        </section>
+    </div>
+
+    <div class=" flex items-center justify-center w-full bg-gray-100 py-12">
+        <section class="mx-auto max-w-lg text-center">
+            <h2 class="text-3xl text-customGreen font-semibold mb-4">Enter the details of your property below to get started:</h2>
+            <div class="grid grid-cols-2 gap-4 p-4">
+                <input class="text-customGreen px-4 py-2 rounded-md font-semibold border-b-2 border-customGreen" type="number" placeholder="Number of Bedrooms">
+                <input class="text-customGreen px-4 py-2 rounded-md font-semibold border-b-2 border-customGreen" type="number" placeholder="Number of Bathrooms">
+                <input class="text-customGreen px-4 py-2 rounded-md font-semibold border-b-2 border-customGreen" type="number" placeholder="Square Footage">
+                <input class="text-customGreen px-4 py-2 rounded-md font-semibold border-b-2 border-customGreen" type="number" placeholder="Year Built">
+            </div>
+            <div class="mb-12 flex justify-between items-center text-3xl gap-3 text-customGreen ">
+                <button class="py-2 px-4 rounded-lg bg-customGreen text-white">Estimate</button>
+                <h2 class="text">Price : $122,000</h2>
+            </div>
+
+            
+        </section>
+    </div>
+</body>
+</html>

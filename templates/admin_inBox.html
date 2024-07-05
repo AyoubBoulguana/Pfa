@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Inbox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      #nav-menu {
+        transition: max-height 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+  <body class="font-OverPass">
+    <nav
+      class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 relative z-10"
+    >
+      <a href="{{url_for('user.user_home')}}">
+        <img
+          src="https://i.postimg.cc/nhC8WXpv/image-1.png"
+          alt="logo"
+          class="w-[85px] sm:w-[167px] h-[29px] sm:h-[59px]"
+        />
+      </a>
+      <button id="nav-toggle" class="block sm:hidden text-customGreen">
+        <svg
+          class="h-6 w-6 fill-current"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 5h16M4 12h16M4 19h16"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <ul
+        id="nav-menu"
+        class="hidden sm:flex flex-col sm:flex-row items-center font-semibold gap-8 sm:gap-8 absolute sm:static top-full left-0 w-full sm:w-auto bg-white sm:bg-transparent sm:space-x-8 sm:px-0 py-4 sm:py-0 shadow-md sm:shadow-none"
+      >
+        <li><a href="{{url_for('sell')}}" class="text-customGreen">BUY</a></li>
+        <li><a href="{{url_for('rent')}}" class="text-customGreen">RENT</a></li>
+        <li>
+          <a href="{{url_for('about')}}" class="text-customGreen">ABOUT US</a>
+        </li>
+        <li>
+          <a href="{{url_for('contact_us')}}" class="text-customGreen"
+            >CONTACT</a
+          >
+        </li>
+        <li role="button">
+          <a href="{{ url_for('admin.admin_profile') }}">
+            <img
+              class="w-[36px] h-[36px] hidden sm:block"
+              src="/static/images/admin.png"
+              alt=""
+            />
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div
+      class="min-h-screen border border-black bg-white flex flex-col sm:flex-row"
+    >
+      <div class="w-full sm:w-1/4 p-5 bg-gray-100">
+        <div class="mb-10 flex justify-start items-center">
+          <img
+            src="/static/images/Admin_logo.png"
+            alt="Profile Picture"
+            class="rounded-full w-20 h-20 mb-3"
+          />
+          <div class="ml-3 text-left">
+            <h2 class="text-gray-900 text-xl font-semibold">HOUSY</h2>
+            <p class="text-[#868686] font-extralight">Admin</p>
+          </div>
+        </div>
+        <div class="space-y-6 font-semibold text-lg">
+          <a
+            href="{{ url_for('admin.admin_home') }}"
+            class="block text-gray-700 p-3"
+            >Listing</a
+          >
+          <a
+            href="{{ url_for('admin.add_listing') }}"
+            class="block text-gray-700 p-3"
+            >Add Listing</a
+          >
+          <a
+            href="{{ url_for('admin.inbox') }}"
+            class="block text-gray-700 p-3 bg-[#D9D9D9]"
+            >Inbox</a
+          >
+          <a
+            href="{{ url_for('logout') }}"
+            class="block text-gray-700 p-3 rounded-md"
+            >Log out</a
+          >
+        </div>
+      </div>
+      <div class="w-full sm:w-3/4 p-1 sm:p-5">
+        <h1
+          class="font-bold text-[#003C43] text-[18px] sm:text-3xl mb-5 mt-[8px] text-center sm:text-left inline-block border-b-4 pb-1 sm:pb-3 border-[#D9D9D9]"
+        >
+          Inbox
+        </h1>
+        <section class="bg-LightGray p-[12px] sm:p-[42px] space-y-6">
+          <h2 class="text-black font-bold py-[4px] px-[12px] w-fit rounded">
+            User Messages
+          </h2>
+          <div class="space-y-6 sm:overflow-y-auto sm:max-h-[500px]">
+            {% for message in messages %}
+            <div class="flex space-x-[1px] sm:space-x-2 message-box">
+              <div class="w-[50%] sm:w-[10%]">
+                <p class="text-[8px] sm:text-[12px] font-bold">Email:</p>
+              </div>
+              <div class="font-light text-[8px] sm:text-[12px] text-DarkGray">
+                {{ message.email }}
+              </div>
+            </div>
+            <div class="flex space-x-[1px] sm:space-x-2 message-box">
+              <div class="w-[50%] sm:w-[10%]">
+                <p class="text-[8px] sm:text-[12px] font-bold">Message:</p>
+              </div>
+              <div class="font-light text-[8px] sm:text-[12px] text-DarkGray">
+                {{ message.message }}
+              </div>
+            </div>
+            <hr class="border-t border-gray-200" />
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="/static/index.js"></script>
+  </body>
+</html>

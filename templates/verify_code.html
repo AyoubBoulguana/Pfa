@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Reset Code</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        .bg-gradient {
+            background: linear-gradient(135deg, #77b0aa 0%, #324a47 100%);
+        }
+    </style>
+</head>
+<body class="bg-gradient flex items-center justify-center h-screen">
+    <div class="bg-white p-8 shadow-lg w-full max-w-sm">
+        <div class="flex items-center justify-center mb-10">
+            <img src="https://i.postimg.cc/J7jmLJhq/image-1-1.png" alt="Housy" class="h-12">
+        </div>
+        <h2 class="text-2xl font-bold mb-2">Verify Reset Code</h2>
+        <p class="text-gray-600 mb-10">Enter the reset code and your new password</p>
+        {% for message in get_flashed_messages() %}
+        <small class="text-therdGreen font-semibold">{{ message }}</small>
+        {% endfor %}
+        <form action="{{ url_for('user.verify_code') }}" method="POST">
+            <div class="relative mb-4">
+                <img src="https://i.postimg.cc/nVTxcLhC/mdi-user.png" alt="Left Icon" class="absolute top-1/2 transform -translate-y-1/2 opacity-50">
+                <input type="email" id="email" name="email" placeholder="Email" class="w-full py-2 pl-10 border-b border-gray-300 focus:outline-none focus:border-gray-500" required>
+            </div>
+            <div class="relative mb-4">
+                <img src="https://i.postimg.cc/J42WZdJ8/mdi-password.png" alt="Left Icon" class="absolute top-1/2 transform -translate-y-1/2 opacity-50">
+                <input type="text" id="reset_code" name="reset_code" placeholder="Reset Code" class="w-full py-2 pl-10 border-b border-gray-300 focus:outline-none focus:border-gray-500" required>
+            </div>
+            <div class="relative mb-4">
+                <img src="https://i.postimg.cc/J42WZdJ8/mdi-password.png" alt="Left Icon" class="absolute top-1/2 transform -translate-y-1/2 opacity-50">
+                <input type="password" id="new_password" name="new_password" placeholder="New Password" class="w-full py-2 pl-10 border-b border-gray-300 focus:outline-none focus:border-gray-500" required>
+            </div>
+            <div class="relative mb-4">
+                <img src="https://i.postimg.cc/J42WZdJ8/mdi-password.png" alt="Left Icon" class="absolute top-1/2 transform -translate-y-1/2 opacity-50">
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm New Password" class="w-full py-2 pl-10 border-b border-gray-300 focus:outline-none focus:border-gray-500" required>
+            </div>
+            <div class="mt-6">
+                <button type="submit" class="w-full bg-[#003C43] text-white py-2 rounded">Reset Password</button>
+            </div>
+        </form>
+    </div>
+    <script src="/static/index.js"></script>
+</body>
+</html>

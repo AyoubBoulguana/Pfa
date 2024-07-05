@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <title>Housy - Contact</title>
+  </head>
+  <body class="p-2">
+    <nav
+      class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 relative z-10"
+    >
+      <a href="{{ url_for('user.user_home') }}">
+        <img
+          src="https://i.postimg.cc/nhC8WXpv/image-1.png"
+          alt="logo"
+          class="w-[85px] sm:w-[167px] h-[29px] sm:h-[59px]"
+        />
+      </a>
+      <button
+        id="nav-toggle"
+        class="block sm:hidden rounded-full text-customGreen"
+      >
+        <svg
+          class="h-6 w-6 fill-current"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 5h16M4 12h16M4 19h16"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <ul
+        id="nav-menu"
+        class="hidden sm:flex flex-col sm:flex-row items-center font-semibold gap-8 sm:gap-8 absolute sm:static top-full left-0 w-full sm:w-auto bg-white sm:bg-transparent sm:space-x-8 sm:px-0 py-4 sm:py-0 shadow-md sm:shadow-none"
+      >
+        <li>
+          <a href="{{ url_for('sell') }}" class="text-customGreen">BUY</a>
+        </li>
+        <li>
+          <a href="{{ url_for('rent') }}" class="text-customGreen">RENT</a>
+        </li>
+        <li>
+          <a href="{{ url_for('about') }}" class="text-customGreen">ABOUT US</a>
+        </li>
+        <li>
+          <a href="{{ url_for('contact_us') }}" class="text-customGreen"
+            >CONTACT</a
+          >
+        </li>
+        <li role="button">
+          {% if session.get('role') == 'admin' %}
+          <a href="{{ url_for('admin.admin_profile') }}">
+            <img
+              class="w-[36px] h-[36px] hidden rounded-full sm:block"
+              src="/static/images/admin.png"
+              alt=""
+            />
+          </a>
+          {% else %}
+          <a href="{{ url_for('user.user_profile') }}">
+            <img
+              class="w-[36px] h-[36px] hidden rounded-full sm:block"
+              src="{{ url_for('static', filename='uploads/' ~ user_profile_picture) }}"
+              alt=""
+            />
+          </a>
+          {% endif %}
+        </li>
+      </ul>
+    </nav>
+
+    <div
+      class="min-h-screen border border-black bg-white flex flex-col sm:flex-row"
+    >
+      <div class="w-full sm:w-1/4 p-5 bg-gray-100">
+        <div class="mb-10 flex items-center">
+          <img
+            src="{{ url_for('static', filename='uploads/' ~ user_profile_picture) }}"
+            alt="Profile Picture"
+            class="rounded-full w-20 h-20 mb-3"
+          />
+          <div class="ml-3">
+            <h2
+              class="text-gray-900 text-xl font-semibold text-center sm:text-left"
+            >
+              {{ user_full_name }}
+            </h2>
+            <p class="text-[#868686] font-extralight sm:text-left">
+              {{ user_email }}
+            </p>
+          </div>
+        </div>
+        <div class="space-y-6 font-semibold text-lg">
+          <a
+            href="{{ url_for('user.saved_listings') }}"
+            class="block text-gray-700 p-3"
+            >Saved posts</a
+          >
+          <a
+            href="{{ url_for('faq') }}"
+            class="block text-gray-700 p-3 rounded-md"
+            >FAQ</a
+          >
+          <a
+            href="{{ url_for('contactsupport') }}"
+            class="block text-gray-700 bg-[#D9D9D9] p-3"
+            >Contact support</a
+          >
+          <a href="{{ url_for('setting') }}" class="block text-gray-700 p-3"
+            >Setting</a
+          >
+          <a
+            href="{{ url_for('logout') }}"
+            class="block text-gray-700 p-3 rounded-md"
+            >Log out</a
+          >
+        </div>
+      </div>
+      <div class="w-full sm:w-3/4 p-5">
+        <h1
+          class="font-bold text-[#003C43] text-3xl mb-5 text-center sm:text-left inline-block border-b-2 pb-3 border-[#D9D9D9]"
+        >
+          Contact Support
+        </h1>
+        <section class="">
+          <form
+            action="{{ url_for('send_message') }}"
+            method="POST"
+            class="space-y-4 bg-[#F5F5F5] p-6 rounded-2xl"
+          >
+            <div>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="mb-2 bg-transparent border-b-2 w-full"
+                placeholder="Your Email"
+                required
+                value="{{ user_email }}"
+              />
+            </div>
+            <div>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-transparent"
+                placeholder="Message"
+                required
+              ></textarea>
+            </div>
+            <div class="flex justify-end w-full">
+              <button
+                type="submit"
+                class="text-gray-500 font-semibold px-3 py-2 rounded-md underline"
+              >
+                Send
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

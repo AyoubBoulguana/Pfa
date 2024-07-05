@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Housy - Sign In</title>
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <style>
+      .bg-gradient {
+        background: linear-gradient(135deg, #77b0aa 0%, #324a47 100%);
+      }
+    </style>
+  </head>
+  <body class="bg-gradient flex items-center justify-center h-screen">
+    <div class="bg-white p-8 shadow-lg w-full max-w-sm">
+      <div class="flex items-center justify-center mb-10">
+        <img
+          src="https://i.postimg.cc/J7jmLJhq/image-1-1.png"
+          alt="Housy"
+          class="h-12"
+        />
+      </div>
+
+      <h2 class="text-2xl font-bold mb-2">Sign in</h2>
+      <p class="text-gray-600 mb-10">We are really happy to see you again!</p>
+      {% for message in get_flashed_messages() %}
+      <small class="text-therdGreen font-semibold">{{ message }}</small>
+      {% endfor %}
+      <form action="/login" method="POST">
+        <div class="relative mb-4">
+          <img
+            src="https://i.postimg.cc/nVTxcLhC/mdi-user.png"
+            alt="Left Icon"
+            class="absolute top-1/2 transform -translate-y-1/2 opacity-50"
+          />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            value="{{ user_username }}"
+            class="w-full py-2 pl-10 border-b border-gray-300 focus:outline-none focus:border-gray-500"
+            required
+          />
+        </div>
+        <div class="relative mb-4">
+          <img
+            src="https://i.postimg.cc/J42WZdJ8/mdi-password.png"
+            alt="Left Icon"
+            class="absolute top-1/2 transform -translate-y-1/2 opacity-50"
+          />
+          <a href="#"
+            ><img
+              src="https://i.postimg.cc/JnMwRwwN/ph-eye-light.png"
+              alt="Right Icon"
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 opacity-50"
+              onclick="myFunction()"
+          /></a>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            value="{{ user_password }}"
+            class="w-full py-2 pl-10 pr-10 border-b border-gray-300 focus:outline-none focus:border-gray-500"
+            required
+          />
+        </div>
+        <p class="text-gray-600">
+          Forget
+          <a class="underline" href="{{ url_for('user.forgot_password') }}">
+            Password?</a
+          >
+        </p>
+
+        <div class="mt-6">
+          <button
+            type="submit"
+            class="w-full bg-[#003C43] text-white py-2 rounded"
+          >
+            SIGN IN
+          </button>
+        </div>
+      </form>
+      <div class="mt-4 mb-10">
+        <p class="text-gray-600">
+          Don't have an account?
+          <a href="/registration" class="text-[#003C43] hover:underline"
+            >Register.</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <script src="/static/index.js"></script>
+    <script type="text/javascript">
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    </script>
+    
+  </body>
+</html>

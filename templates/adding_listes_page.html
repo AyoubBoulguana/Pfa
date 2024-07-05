@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin listing page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+    <style>
+      .active {
+        background-color: #77b0aa;
+        color: white;
+      }
+      .inactive {
+        background-color: #d1d5db;
+        color: black;
+      }
+    </style>
+  </head>
+  <body class="font-OverPass">
+    <nav
+      class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 relative z-10"
+    >
+      <a href="{{url_for('user.user_home')}}">
+        <img
+          src="https://i.postimg.cc/nhC8WXpv/image-1.png"
+          alt="logo"
+          class="w-[85px] sm:w-[167px] h-[29px] sm:h-[59px]"
+        />
+      </a>
+      <button id="nav-toggle" class="block sm:hidden text-customGreen">
+        <svg
+          class="h-6 w-6 fill-current"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 5h16M4 12h16M4 19h16"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <ul
+        id="nav-menu"
+        class="hidden sm:flex flex-col sm:flex-row items-center font-semibold gap-8 sm:gap-8 absolute sm:static top-full left-0 w-full sm:w-auto bg-white sm:bg-transparent sm:space-x-8 sm:px-0 py-4 sm:py-0 shadow-md sm:shadow-none"
+      >
+        <li><a href="{{url_for('sell')}}" class="text-customGreen">BUY</a></li>
+        <li><a href="{{url_for('rent')}}" class="text-customGreen">RENT</a></li>
+        <li>
+          <a href="{{url_for('about')}}" class="text-customGreen">ABOUT US</a>
+        </li>
+        <li>
+          <a href="{{url_for('contact_us')}}" class="text-customGreen"
+            >CONTACT</a
+          >
+        </li>
+        <li role="button">
+          <a href="{{ url_for('admin.admin_profile') }}">
+            <img
+              class="w-[36px] h-[36px] hidden sm:block"
+              src="/static/images/admin.png"
+              alt=""
+            />
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div
+      class="min-h-screen border border-black bg-white flex flex-col sm:flex-row"
+    >
+      <div class="w-full sm:w-1/4 p-5 bg-gray-100">
+        <div class="mb-10 flex justify-start items-center">
+          <img
+            src="/static/images/Admin_logo.png"
+            alt="Profile Picture"
+            class="rounded-full w-20 h-20 mb-3"
+          />
+          <div class="ml-3 text-left">
+            <h2 class="text-gray-900 text-xl font-semibold">HOUSY</h2>
+            <p class="text-[#868686] font-extralight">Admin</p>
+          </div>
+        </div>
+        <div class="space-y-6 font-semibold text-lg">
+          <a
+            href="{{ url_for('admin.admin_home') }}"
+            class="block text-gray-700 p-3"
+            >Listing</a
+          >
+          <a
+            href="{{ url_for('admin.add_listing') }}"
+            class="block text-gray-700 bg-[#D9D9D9] p-3 rounded-md"
+            >Adding a list</a
+          >
+          <a href="{{ url_for('admin.inbox') }}" class="block text-gray-700 p-3"
+            >Inbox</a
+          >
+          <a
+            href="{{ url_for('logout') }}"
+            class="block text-gray-700 p-3 rounded-md"
+            >Log out</a
+          >
+        </div>
+      </div>
+      <div class="w-full sm:w-3/4 p-1 sm:p-5">
+        <h1
+          class="font-bold text-[#003C43] text-[18px] sm:text-3xl mb-5 mt-[8px] text-center sm:text-left inline-block border-b-4 pb-1 sm:pb-3 border-[#D9D9D9]"
+        >
+          Adding a list
+        </h1>
+        <form
+          class="bg-LightGray pb-[42px]"
+          action="{{ url_for('admin.add_listing') }}"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div
+            class="sm:flex sm:justify-between items-center p-[12px] sm:p-[42px]"
+          >
+            <div class="flex items-start space-x-4 p-5">
+              <div
+                class="border-dashed border-2 border-gray-500 rounded-xl p-5 max-w-xs max-h-xs"
+              >
+                <label
+                  for="images"
+                  class="flex flex-col items-center space-y-2 cursor-pointer"
+                >
+                  <img
+                    src="/static/images/adding_image_icon.png"
+                    alt="Add Image Icon"
+                    class="w-full h-full object-cover rounded-lg"
+                  />
+                  <h2 class="text-gray-700 text-sm">Add images</h2>
+                  <input
+                    name="images"
+                    id="images"
+                    type="file"
+                    class="hidden"
+                    accept="image/*"
+                    multiple
+                  />
+                </label>
+              </div>
+              <div class="flex-1">
+                <div
+                  id="image-preview-container"
+                  class="w-[110px] sm:w-[280px] grid grid-cols-2 sm:grid-cols-2 gap-4"
+                >
+                  <p id="no-image" class="text-gray-700 col-span-full">
+                    No images uploaded
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <div
+                class="sm:flex flex-col sm:flex-row space-x-0 sm:space-x-2 space-y-2 sm:space-y-0"
+              >
+                <button
+                  id="sell-button"
+                  class="toggle-button active rounded px-6 py-2"
+                  type="button"
+                >
+                  Sell
+                </button>
+                <button
+                  id="rent-button"
+                  class="toggle-button inactive rounded px-6 py-2"
+                  type="button"
+                >
+                  Rent
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="px-[12px] sm:px-[42px] sm:flex sm:justify-between sm:space-x-[30px] pb-[42px]"
+          >
+            <div class="sm:w-[50%] pt-8 sm:pt-0">
+              <input
+                class="bg-LightGray border-b border-DarkGray w-full py-2 px-4 font-light"
+                type="number"
+                name="bedrooms"
+                id="bedrooms"
+                placeholder="Number of bedrooms"
+              />
+              <input
+                class="bg-LightGray border-b border-DarkGray w-full py-2 px-4 font-light"
+                type="number"
+                name="bathrooms"
+                id="bathrooms"
+                placeholder="Number of bathroom"
+              />
+              <input
+                class="bg-LightGray border-b border-DarkGray w-full py-2 px-4 font-light"
+                type="number"
+                name="square_footage"
+                id="square_footage"
+                placeholder="Square footage of the home"
+              />
+              <input
+                class="bg-LightGray border-b border-DarkGray w-full py-2 px-4 font-light"
+                type="number"
+                name="price"
+                id="price"
+                placeholder="Price"
+              />
+            </div>
+            <div>
+              <input
+                class="bg-LightGray border-b border-DarkGray w-full py-2 px-4 font-light max-h-[200px]"
+                name="city"
+                id="city"
+                type="text"
+                placeholder="City"
+              />
+              <textarea
+                class="bg-LightGray border-b border-DarkGray w-full py-2 px-4 font-light"
+                name="description"
+                id="description"
+                placeholder="Description of the home"
+              ></textarea>
+            </div>
+          </div>
+          <input type="hidden" name="action" id="action" value="sell" />
+          <button
+            class="bg-customGreen text-LightGray px-[55px] py-[7px] rounded ml-[12px] sm:ml-[42px] self-end"
+            type="submit"
+          >
+            Public
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const sellButton = document.getElementById("sell-button");
+        const rentButton = document.getElementById("rent-button");
+
+        sellButton.addEventListener("click", () => {
+          sellButton.classList.add("active");
+          sellButton.classList.remove("inactive");
+          rentButton.classList.add("inactive");
+          rentButton.classList.remove("active");
+          document.getElementById("action").value = "sell";
+        });
+
+        rentButton.addEventListener("click", () => {
+          rentButton.classList.add("active");
+          rentButton.classList.remove("inactive");
+          sellButton.classList.add("inactive");
+          sellButton.classList.remove("active");
+          document.getElementById("action").value = "rent";
+        });
+
+        document
+          .getElementById("images")
+          .addEventListener("change", function (event) {
+            const files = event.target.files;
+            const container = document.getElementById(
+              "image-preview-container"
+            );
+
+            container.innerHTML = "";
+
+            if (files.length > 0) {
+              Array.from(files).forEach((file) => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                  const img = document.createElement("img");
+                  img.src = e.target.result;
+                  img.classList.add(
+                    "w-full",
+                    "h-auto",
+                    "object-cover",
+                    "rounded-lg"
+                  );
+                  container.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+              });
+
+              document.getElementById("no-image").classList.add("hidden");
+            } else {
+              if (container.children.length === 0) {
+                document.getElementById("no-image").classList.remove("hidden");
+              }
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
