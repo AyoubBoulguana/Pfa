@@ -227,5 +227,19 @@
       </div>
     </div>
     <script src="/static/index.js"></script>
+    <script>
+      document
+        .getElementById("nav-toggle")
+        .addEventListener("click", function () {
+          var navMenu = document.getElementById("nav-menu");
+          if (navMenu.classList.contains("hidden")) {
+            navMenu.classList.remove("hidden");
+            navMenu.classList.add("flex");
+          } else {
+            navMenu.classList.add("hidden");
+            navMenu.classList.remove("flex");
+          }
+        });
+    </script>
   </body>
 </html>

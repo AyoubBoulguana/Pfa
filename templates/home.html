@@ -70,6 +70,7 @@
                 class="w-[36px] h-[36px] hidden sm:block"
                 src="/static/images/admin.png"
                 alt=""
+                id="nav-menu"
               />
             </a>
           </li>
@@ -80,11 +81,16 @@
                 class="w-[36px] h-[36px] hidden sm:block"
                 src="{{ url_for('static', filename='uploads/' ~ user_profile_picture) }}"
                 alt=""
+                id="nav-menu"
               />
             </a>
           </li>
           {% else %}
-          <li role="button" class="bg-customGreen text-white px-2 py-1 rounded">
+          <li
+            role="button"
+            id="nav-menu"
+            class="bg-customGreen text-white px-2 py-1 rounded"
+          >
             <a href="{{ url_for('login') }}">LOGIN SIGN UP</a>
           </li>
           {% endif %}
@@ -332,5 +338,19 @@
     </footer>
 
     <script src="/static/index.js"></script>
+    <script>
+      document
+        .getElementById("nav-toggle")
+        .addEventListener("click", function () {
+          var navMenu = document.getElementById("nav-menu");
+          if (navMenu.classList.contains("hidden")) {
+            navMenu.classList.remove("hidden");
+            navMenu.classList.add("flex");
+          } else {
+            navMenu.classList.add("hidden");
+            navMenu.classList.remove("flex");
+          }
+        });
+    </script>
   </body>
 </html>

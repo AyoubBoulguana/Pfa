@@ -56,7 +56,7 @@
         <li role="button">
           <a href="{{ url_for('admin.admin_profile') }}">
             <img
-              class="w-[36px] h-[36px] hidden sm:block"
+              class="w-[36px] h-[36px] hidden rounded-full sm:block"
               src="/static/images/admin.png"
               alt=""
             />
@@ -67,7 +67,7 @@
           {% if session.get('role') == 'admin' %}
           <a href="{{ url_for('admin.admin_profile') }}">
             <img
-              class="w-[36px] h-[36px] hidden sm:block"
+              class="w-[36px] h-[36px] hidden rounded-full sm:block"
               src="/static/images/admin.png"
               alt=""
             />
@@ -75,7 +75,7 @@
           {% else %}
           <a href="{{ url_for('user.user_profile') }}">
             <img
-              class="w-[36px] h-[36px] hidden sm:block"
+              class="w-[36px] h-[36px] hidden rounded-full sm:block"
               src="{{ url_for('static', filename='uploads/' ~ user_profile_picture) }}"
               alt=""
             />
@@ -321,5 +321,19 @@
       </div>
     </footer>
     <script src="/static/index.js"></script>
+    <script>
+      document
+        .getElementById("nav-toggle")
+        .addEventListener("click", function () {
+          var navMenu = document.getElementById("nav-menu");
+          if (navMenu.classList.contains("hidden")) {
+            navMenu.classList.remove("hidden");
+            navMenu.classList.add("flex");
+          } else {
+            navMenu.classList.add("hidden");
+            navMenu.classList.remove("flex");
+          }
+        });
+    </script>
   </body>
 </html>
