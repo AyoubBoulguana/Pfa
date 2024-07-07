@@ -202,6 +202,82 @@
       is not a guaranteed market value. For a precise valuation, please consult
       a real estate professional.
     </p>
+    <footer
+      class="bg-customGreen flex flex-col space-y-4 sm:space-y-0 sm:flex-row justify-between p-8 mt-[40px]"
+    >
+      <div class="w-1/2">
+        <img src="/static/images/image 3.png" alt="Housy Logo" />
+        <h2 class="font-bold text-white text-2xl">
+          About Housy's Recommendations
+        </h2>
+        <p class="text-white">
+          Recommendations are based on your location and search activity, such
+          as the homes you've viewed and saved and the filters you've used. We
+          use this information to bring similar homes to your attention, so you
+          don't miss out.
+        </p>
+        <p class="text-white text-sm mt-6">&copy; 2024 Housy</p>
+      </div>
+      <div class="space-y-2">
+        <h2 class="font-bold text-white text-2xl">Contact</h2>
+        <ul class="space-y-4 text-white">
+          <a class="flex items-center" href="housy.ewa@gmail.com">
+            <img src="/static/images/email.png" alt="Email Icon" class="mr-2" />
+            <span>Housy.ewa@gmail.com</span></a
+          >
+          <a
+            class="flex items-center"
+            href="https://www.facebook.com/profile.php?id=61561810033387&mibextid=ZbWKwL"
+          >
+            <img
+              src="/static/images/facebook.png"
+              alt="Facebook Icon"
+              class="mr-2"
+            />
+            <span>Housy immobilier</span>
+          </a>
+          <a
+            class="flex items-center"
+            href="https://www.instagram.com/housy_immobilie?igsh=cHhxczMxNW5lZ2d4"
+          >
+            <img
+              src="/static/images/instagram.png"
+              alt="Instagram Icon"
+              class="mr-2"
+            />
+            <span>Housy immobilier</span>
+          </a>
+
+          <a
+            class="flex items-center"
+            href="https://x.com/housy_ewa?t=rRrVdKBPikD2Pb51fSk_Qg&s=09"
+          >
+            <img src="/static/images/x.png" alt="X Icon" class="mr-2" />
+            <span>Housy immobilier</span>
+          </a>
+        </ul>
+      </div>
+      <div class="space-y-2">
+        <h2 class="font-bold text-white text-2xl">About</h2>
+        <p class="text-white">
+          Pfa 2024 <br />
+          Create by <br />
+          Ayoub BOULGUANA <br />
+          Abdelhadi BELKHADIM <br />
+          Anas MOUCHAHID <br />
+          Amin JOUHRI
+        </p>
+      </div>
+      <div class="space-y-2">
+        <h2 class="font-bold text-white text-2xl">Menu</h2>
+        <ul class="space-y-4 text-white">
+          <li><a href="{{ url_for('sell') }}">Buy</a></li>
+          <li><a href="{{ url_for('rent') }}">Rent</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('about') }}">Contact</a></li>
+        </ul>
+      </div>
+    </footer>
   </body>
   <script>
     document

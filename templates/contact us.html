@@ -56,7 +56,7 @@
         <li role="button">
           <a href="{{ url_for('admin.admin_profile') }}">
             <img
-              class="w-[36px] h-[36px] hidden sm:block"
+              class="w-[36px] h-[36px] hidden rounded-full sm:block"
               src="/static/images/admin.png"
               alt=""
             />
@@ -67,7 +67,7 @@
           {% if session.get('role') == 'admin' %}
           <a href="{{ url_for('admin.admin_profile') }}">
             <img
-              class="w-[36px] h-[36px] hidden sm:block"
+              class="w-[36px] h-[36px] hidden rounded-full sm:block"
               src="/static/images/admin.png"
               alt=""
             />
@@ -75,7 +75,7 @@
           {% else %}
           <a href="{{ url_for('user.user_profile') }}">
             <img
-              class="w-[36px] h-[36px] hidden sm:block"
+              class="w-[36px] h-[36px] hidden rounded-full sm:block"
               src="{{ url_for('static', filename='uploads/' ~ user_profile_picture) }}"
               alt=""
             />
@@ -101,33 +101,42 @@
       </p>
     </section>
     <div class="sm:flex justify-center space-y-4 sm:space-y-0 sm:space-x-8">
-      <div
-        class="bg-customGreen flex items-center space-x-8 px-4 py-2 rounded-xl"
-      >
-        <div><img src="/static/images/whatsapp_icon.png" alt="" /></div>
-        <div class="text-center">
-          <h2 class="text-white font-bold text-2xl">Whatsapp</h2>
-          <p class="text-white">+212 695 221 572</p>
+      <a href="Wa.me/+212616044083">
+        <div
+          class="bg-customGreen flex items-center space-x-8 px-4 py-2 rounded-xl"
+        >
+          <div><img src="/static/images/whatsapp_icon.png" alt="" /></div>
+          <div class="text-center">
+            <h2 class="text-white font-bold text-2xl">Whatsapp</h2>
+            <p class="text-white">+212616044083</p>
+          </div>
         </div>
-      </div>
-      <div
-        class="bg-customGreen flex items-center space-x-8 px-4 py-2 rounded-xl"
-      >
-        <div><img src="/static/images/email_icom.png" alt="" /></div>
-        <div class="text-center">
-          <h2 class="text-white font-bold text-2xl">Email</h2>
-          <p class="text-white">Housy.ewa@gmail.com</p>
+      </a>
+
+      <a href="housy.ewa@gmail.com">
+        <div
+          class="bg-customGreen flex items-center space-x-8 px-4 py-2 rounded-xl"
+        >
+          <div><img src="/static/images/email_icom.png" alt="" /></div>
+          <div class="text-center">
+            <h2 class="text-white font-bold text-2xl">Email</h2>
+            <p class="text-white">Housy.ewa@gmail.com</p>
+          </div>
         </div>
-      </div>
-      <div
-        class="bg-customGreen flex items-center space-x-8 px-4 py-2 rounded-xl"
+      </a>
+      <a
+        href="https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit"
       >
-        <div><img src="/static/images/linkedin_icon.png" alt="" /></div>
-        <div class="text-center">
-          <h2 class="text-white font-bold text-2xl">LinkedIn</h2>
-          <p class="text-white">Housy immob</p>
+        <div
+          class="bg-customGreen flex items-center space-x-8 px-4 py-2 rounded-xl"
+        >
+          <div><img src="/static/images/linkedin_icon.png" alt="" /></div>
+          <div class="text-center">
+            <h2 class="text-white font-bold text-2xl">LinkedIn</h2>
+            <p class="text-white">Housy immob</p>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
     <p class="text-customGreen text-center px-8 py-8">
       Thank you for reaching out to us! We appreciate your interest and value
@@ -155,30 +164,40 @@
       <div class="space-y-2">
         <h2 class="font-bold text-white text-2xl">Contact</h2>
         <ul class="space-y-4 text-white">
-          <li class="flex items-center">
+          <a class="flex items-center" href="housy.ewa@gmail.com">
             <img src="/static/images/email.png" alt="Email Icon" class="mr-2" />
-            <span>Housy.ewa@gmail.com</span>
-          </li>
-          <li class="flex items-center">
+            <span>Housy.ewa@gmail.com</span></a
+          >
+          <a
+            class="flex items-center"
+            href="https://www.facebook.com/profile.php?id=61561810033387&mibextid=ZbWKwL"
+          >
             <img
               src="/static/images/facebook.png"
               alt="Facebook Icon"
               class="mr-2"
             />
             <span>Housy immobilier</span>
-          </li>
-          <li class="flex items-center">
+          </a>
+          <a
+            class="flex items-center"
+            href="https://www.instagram.com/housy_immobilie?igsh=cHhxczMxNW5lZ2d4"
+          >
             <img
               src="/static/images/instagram.png"
               alt="Instagram Icon"
               class="mr-2"
             />
             <span>Housy immobilier</span>
-          </li>
-          <li class="flex items-center">
+          </a>
+
+          <a
+            class="flex items-center"
+            href="https://x.com/housy_ewa?t=rRrVdKBPikD2Pb51fSk_Qg&s=09"
+          >
             <img src="/static/images/x.png" alt="X Icon" class="mr-2" />
             <span>Housy immobilier</span>
-          </li>
+          </a>
         </ul>
       </div>
       <div class="space-y-2">
@@ -195,10 +214,10 @@
       <div class="space-y-2">
         <h2 class="font-bold text-white text-2xl">Menu</h2>
         <ul class="space-y-4 text-white">
-          <li>Buy</li>
-          <li>Rent</li>
-          <li>About us</li>
-          <li>Contact</li>
+          <li><a href="{{ url_for('sell') }}">Buy</a></li>
+          <li><a href="{{ url_for('rent') }}">Rent</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('about') }}">Contact</a></li>
         </ul>
       </div>
     </footer>

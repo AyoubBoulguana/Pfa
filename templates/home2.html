@@ -269,8 +269,8 @@
     <footer
       class="bg-customGreen flex flex-col space-y-4 sm:space-y-0 sm:flex-row justify-between p-8 mt-[40px]"
     >
-      <div class="sm:w-1/2">
-        <img class="" src="/static/images/image 3.png" alt="Housy Logo" />
+      <div class="w-1/2">
+        <img src="/static/images/image 3.png" alt="Housy Logo" />
         <h2 class="font-bold text-white text-2xl">
           About Housy's Recommendations
         </h2>
@@ -282,34 +282,43 @@
         </p>
         <p class="text-white text-sm mt-6">&copy; 2024 Housy</p>
       </div>
-
       <div class="space-y-2">
         <h2 class="font-bold text-white text-2xl">Contact</h2>
         <ul class="space-y-4 text-white">
-          <li class="flex items-center">
+          <a class="flex items-center" href="housy.ewa@gmail.com">
             <img src="/static/images/email.png" alt="Email Icon" class="mr-2" />
-            <span>Housy.ewa@gmail.com</span>
-          </li>
-          <li class="flex items-center">
+            <span>Housy.ewa@gmail.com</span></a
+          >
+          <a
+            class="flex items-center"
+            href="https://www.facebook.com/profile.php?id=61561810033387&mibextid=ZbWKwL"
+          >
             <img
               src="/static/images/facebook.png"
               alt="Facebook Icon"
               class="mr-2"
             />
             <span>Housy immobilier</span>
-          </li>
-          <li class="flex items-center">
+          </a>
+          <a
+            class="flex items-center"
+            href="https://www.instagram.com/housy_immobilie?igsh=cHhxczMxNW5lZ2d4"
+          >
             <img
               src="/static/images/instagram.png"
               alt="Instagram Icon"
               class="mr-2"
             />
             <span>Housy immobilier</span>
-          </li>
-          <li class="flex items-center">
+          </a>
+
+          <a
+            class="flex items-center"
+            href="https://x.com/housy_ewa?t=rRrVdKBPikD2Pb51fSk_Qg&s=09"
+          >
             <img src="/static/images/x.png" alt="X Icon" class="mr-2" />
             <span>Housy immobilier</span>
-          </li>
+          </a>
         </ul>
       </div>
       <div class="space-y-2">
@@ -326,10 +335,10 @@
       <div class="space-y-2">
         <h2 class="font-bold text-white text-2xl">Menu</h2>
         <ul class="space-y-4 text-white">
-          <li>Buy</li>
-          <li>Rent</li>
-          <li>About us</li>
-          <li>Contact</li>
+          <li><a href="{{ url_for('sell') }}">Buy</a></li>
+          <li><a href="{{ url_for('rent') }}">Rent</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('about') }}">Contact</a></li>
         </ul>
       </div>
     </footer>
