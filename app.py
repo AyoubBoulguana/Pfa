@@ -3,10 +3,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
+import pandas as pd
 import os
 import random
 import string
+import pickle
 from sqlalchemy import or_
+
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
@@ -148,10 +153,10 @@ def delete_listing(listing_id):
     try:
         db.session.delete(listing)
         db.session.commit()
-        flash('Listing deleted successfully!', 'success')
+        flash('Listing deleted successfully!')
     except Exception as e:
         db.session.rollback()
-        flash(f'Error deleting listing: {str(e)}', 'danger')
+        flash(f'Error deleting listing: {str(e)}')
     return redirect(url_for('admin.admin_home'))
 
 @admin_bp.route('/inbox')
@@ -214,10 +219,10 @@ def user_profile():
             listings = [Listing.query.get(saved.listing_id) for saved in saved_listings]
             return render_template('user_saving_page.html', user_full_name=user_full_name, user_email=user_email, user_profile_picture=user_profile_picture ,listings=listings)
         else:
-            flash('User not found', 'warning')
+            flash('User not found')
             return redirect(url_for('user.user_home'))
     else:
-        flash('You need to log in to view saved listings', 'warning')
+        flash('You need to log in to view saved listings')
         return redirect(url_for('user.login'))
 
 @user_bp.route('/is_listing_saved/<int:listing_id>', methods=['GET'])
@@ -235,7 +240,7 @@ def is_listing_saved(listing_id):
 @user_bp.route('/saved_listings', methods=['GET'])
 def saved_listings():
     if 'username' not in session:
-        flash('You need to log in to view saved listings', 'warning')
+        flash('You need to log in to view saved listings')
         return redirect(url_for('user.login'))
 
     user = User.query.filter_by(username=session['username']).first()
@@ -261,10 +266,10 @@ def forgot_password():
             msg.subject = 'Password Reset Request'
             msg.body = f'Your password reset code is {reset_code}'
             mail.send(msg)
-            flash('A reset code has been sent to your email.', 'info')
+            flash('A reset code has been sent to your email.')
             return redirect(url_for('user.verify_code'))
         else:
-            flash('Email not found.', 'danger')
+            flash('Email not found.')
     return render_template('resetPassword.html')
 
 @user_bp.route('/verify_code', methods=['GET', 'POST'])
@@ -280,12 +285,12 @@ def verify_code():
                 user.password = new_password
                 user.reset_code = None
                 db.session.commit()
-                flash('Your password has been reset. You can now log in.', 'success')
+                flash('Your password has been reset. You can now log in.')
                 return redirect(url_for('login'))  
             else:
-                flash('Passwords do not match.', 'danger')
+                flash('Passwords do not match.')
         else:
-            flash('Invalid reset code.', 'danger')
+            flash('Invalid reset code.')
     return render_template('verify_code.html')
 
 
@@ -307,19 +312,19 @@ def registration():
         phone = request.form['phone']
 
         if password != confirm_password:
-            flash('Passwords do not match!', 'danger')
+            flash('Passwords do not match!')
             return redirect(url_for('registration'))
 
         # Check username if exisit
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-            flash('Username already taken. Please choose a different username.', 'danger')
+            flash('Username already taken. Please choose a different username.')
             return redirect(url_for('registration'))
         
         # Check email if exist
         existing_email = User.query.filter_by(email=email).first()
         if existing_email:
-            flash('Email already registered. Please use a different email address or log in.', 'danger')
+            flash('Email already registered. Please use a different email address or log in.')
             return redirect(url_for('registration'))
 
         # profile picture
@@ -334,11 +339,46 @@ def registration():
         db.session.add(new_user)
         db.session.commit()
 
-        flash('Registration successful! Please log in.', 'success')
+        flash('Registration successful! Please log in.')
         return redirect(url_for('login'))
     
     return render_template('registration.html')
 
+model_file = open('model.pkl', 'rb')
+model = pickle.load(model_file)
+model_file.close()
+
+@app.route('/estimatee')
+def estimatee():
+    return render_template('index.html')
+
+@app.route('/estimate', methods=['POST'])
+def estimate():
+    try:
+        
+        bedrooms = float(request.form['bedrooms'])
+        bathrooms = float(request.form['bathrooms'])
+        sqft_lot = float(request.form['sqft_lot'])
+        sqft_living = float(request.form['sqft_living'])
+
+        input_data = pd.DataFrame({
+            'bedrooms': [bedrooms],
+            'bathrooms': [bathrooms],
+            'sqft_living': [sqft_living],
+            'sqft_lot': [sqft_lot]
+            
+        })
+        print(input_data)
+
+
+        prediction = model.predict(input_data)
+
+        
+        return render_template('index.html', estimated_price=prediction[0])
+
+    except Exception as e:
+        
+        return render_template('index.html', error_message=str(e))
 
 
 
@@ -360,7 +400,7 @@ def login():
         if user:
             session['username'] = user.username
             session['role'] = 'user'
-            flash('Login successful!', 'success')
+            flash('Login successful!')
             return redirect(url_for('user.user_home'))
         else:
             flash('Invalid credentials, please try again.')
@@ -373,7 +413,7 @@ def login():
 def logout():
     session.pop('username', None)
     session.pop('role', None)
-    flash('You have been logged out.', 'success')
+    flash('You have been logged out.')
     return redirect(url_for('login'))
 
 # Other routes
@@ -401,9 +441,9 @@ def about():
         user_profile_picture = None
     elif 'username' in session:
         user = User.query.filter_by(username=session['username']).first()
-        user_profile_picture = user.profile_picture if user.profile_picture else 'static/images/admin.png'
+        user_profile_picture = user.profile_picture if user.profile_picture else 'static/images/admin_logo.png'
     else:
-        user_profile_picture = 'static/images/admin.png'
+        user_profile_picture = 'static/images/admin_logo.png'
 
     return render_template('about us.html', user_profile_picture=user_profile_picture)
 
@@ -413,9 +453,9 @@ def product(listing_id):
         user_profile_picture = None
     elif 'username' in session:
         user = User.query.filter_by(username=session['username']).first()
-        user_profile_picture = user.profile_picture if user.profile_picture else 'static/images/admin.png'
+        user_profile_picture = user.profile_picture if user.profile_picture else 'static/images/admin_logo.png'
     else:
-        user_profile_picture = 'static/images/admin.png'
+        user_profile_picture = 'static/images/admin_logo.png'
     listing = Listing.query.get_or_404(listing_id)
     images = ListingImage.query.filter_by(listing_id=listing_id).all()
     return render_template('product.html', listing=listing, images=images ,user_profile_picture=user_profile_picture)
@@ -446,9 +486,9 @@ def rent():
         user_profile_picture = None
     elif 'username' in session:
         user = User.query.filter_by(username=session['username']).first()
-        user_profile_picture = user.profile_picture if user and user.profile_picture else 'static/images/admin.png'
+        user_profile_picture = user.profile_picture if user and user.profile_picture else 'static/images/admin_logo.png'
     else:
-        user_profile_picture = 'static/images/admin.png'
+        user_profile_picture = 'static/images/admin_logo.png'
 
     return render_template('rent.html', listings=listings, user_profile_picture=user_profile_picture)
 
@@ -478,9 +518,9 @@ def sell():
         user_profile_picture = None
     elif 'username' in session:
         user = User.query.filter_by(username=session['username']).first()
-        user_profile_picture = user.profile_picture if user and user.profile_picture else 'static/images/admin.png'
+        user_profile_picture = user.profile_picture if user and user.profile_picture else 'static/images/admin_logo.png'
     else:
-        user_profile_picture = 'static/images/admin.png'
+        user_profile_picture = 'static/images/admin_logo.png'
 
     return render_template('sell.html', listings=listings, user_profile_picture=user_profile_picture)
 
@@ -499,11 +539,11 @@ def faq():
         else:
             user_full_name = 'Guest User'
             user_email = 'guest@example.com'
-            user_profile_picture = '/static/images/admin.png'  
+            user_profile_picture = '/static/images/admin_logo.png'  
     else:
         user_full_name = 'Guest User'
         user_email = 'guest@example.com'
-        user_profile_picture = '/static/images/admin.png'
+        user_profile_picture = '/static/images/admin_logo.png'
 
     return render_template('FAQ.html', user_full_name=user_full_name, user_email=user_email, user_profile_picture=user_profile_picture)
 
@@ -514,9 +554,9 @@ def contact_us():
         user_profile_picture = None
     elif 'username' in session:
         user = User.query.filter_by(username=session['username']).first()
-        user_profile_picture = user.profile_picture if user.profile_picture else 'static/images/admin.png'
+        user_profile_picture = user.profile_picture if user.profile_picture else 'static/images/admin_logo.png'
     else:
-        user_profile_picture = 'static/images/admin.png'
+        user_profile_picture = 'static/images/admin_logo.png'
 
     return render_template('contact us.html', user_profile_picture=user_profile_picture)
 
@@ -575,9 +615,9 @@ def setting():
             user.phone = phone
             db.session.commit()
             session['username'] = username
-            flash('Settings updated successfully!', 'success')
+            flash('Settings updated successfully!')
         else:
-            flash('User not found!', 'danger')
+            flash('User not found!')
 
         return redirect(url_for('setting'))
 
@@ -593,5 +633,6 @@ def setting():
 
 if __name__ == '__main__':
     with app.app_context():
+        
         db.create_all()
     app.run(debug=True)

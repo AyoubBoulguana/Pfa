@@ -70,7 +70,15 @@
         </li>
       </ul>
     </nav>
-
+    <div class="flex items-center">
+      {% for message in get_flashed_messages() %}
+      <small
+        id="flash-message"
+        class="text-customGreen py-2 text-center w-full bg-therdGreen font-semibold"
+        >{{ message }}</small
+      >
+      {% endfor %}
+    </div>
     <div
       class="min-h-screen border border-black bg-white flex flex-col sm:flex-row"
     >

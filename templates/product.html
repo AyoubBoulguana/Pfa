@@ -66,7 +66,7 @@
           <a href="{{ url_for('admin.admin_profile') }}">
             <img
               class="w-[36px] h-[36px] hidden rounded-full sm:block"
-              src="/static/images/admin.png"
+              src="/static/images/Admin_logo.png"
               alt=""
             />
           </a>
@@ -88,25 +88,25 @@
       </ul>
     </nav>
     <div class="overflow-hidden mt-[40px]">
-      <div class="flex items-center px-8 sm:space-x-8 sm:flex-row flex-col">
-        <div class="sm:w-1/2 mt-4">
+      <div class="flex items-start px-8 sm:space-x-8 sm:flex-row flex-col">
+        <div class="sm:w-1/2">
           <img
             id="main-image"
             src="{% if images %}{{ url_for('static', filename='uploads/' ~ images[0].filename) }}{% else %}{{ url_for('static', filename='uploads/default.jpg') }}{% endif %}"
             alt="Property Image"
-            class="w-full"
+            class="w-full rounded-lg"
           />
           <div class="grid grid-cols-3 gap-1 p-4 -ml-3">
             {% for image in images[0:4] %}
             <img
               src="{{ url_for('static', filename='uploads/' ~ image.filename) }}"
               alt="Property Image"
-              class="thumbnail object-cover cursor-pointer"
+              class="thumbnail object-cover cursor-pointer rounded-lg"
             />
             {% endfor %}
           </div>
         </div>
-        <div class="sm:w-1/2 p-[30px] bg-LightGreen">
+        <div class="sm:w-1/2 w-full p-[30px] bg-LightGreen rounded-lg">
           <h1 class="text-2xl font-bold mb-4 w-auto text-customGreen">
             Description
           </h1>
@@ -139,7 +139,11 @@
           <button
             class="bg-customGreen text-white font-semibold px-4 py-3 rounded transition duration-300 ease-in-out hover:bg-opacity-80 hover:text-opacity-80"
           >
-            <a href="#" class="tracking-wider">Contact us</a>
+            <a
+              href="https://api.whatsapp.com/send/?phone=%2B2126044083&text&type=phone_number&app_absent=0"
+              class="tracking-wider"
+              >Contact us</a
+            >
           </button>
         </div>
       </div>

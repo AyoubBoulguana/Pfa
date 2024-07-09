@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/static/css/main.css" />
     <title>Housy - Settings</title>
   </head>
-  <body class="p-2">
+  <body class="">
     <nav
       class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 relative z-10"
     >
@@ -71,6 +71,14 @@
         </li>
       </ul>
     </nav>
+    <div class="flex items-center pb-2">
+      {% for message in get_flashed_messages() %}
+      <small
+        class="text-customGreen py-2 text-center w-full bg-therdGreen font-semibold"
+        >{{ message }}</small
+      >
+      {% endfor %}
+    </div>
 
     <div
       class="min-h-screen border border-black bg-white flex flex-col sm:flex-row"

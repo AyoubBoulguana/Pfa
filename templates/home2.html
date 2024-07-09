@@ -28,6 +28,15 @@
         alt=""
         class="absolute w-fix top-0 left-0 w-full h-full object-cover z-[-1]"
       />
+      <div class="flex items-center">
+        {% for message in get_flashed_messages() %}
+        <small
+          id="flash-message"
+          class="text-customGreen py-2 text-center w-full bg-therdGreen font-semibold"
+          >{{ message }}</small
+        >
+        {% endfor %}
+      </div>
       <nav
         class="flex items-center justify-between px-4 sm:px-12 py-4 sm:py-5 relative z-10"
       >
@@ -144,7 +153,7 @@
         <button
           class="bg-customGreen text-white text-[10px] sm:text-xl font-semibold px-4 py-2 sm:px-6 sm:py-3 rounded transition duration-300 ease-in-out hover:bg-opacity-80 hover:text-opacity-80"
         >
-          <a href="#">Discover more</a>
+          <a href="{{ url_for('sell') }}">Discover more</a>
         </button>
       </div>
     </section>
@@ -247,7 +256,7 @@
             provides you with an accurate estimate of your house's value based
             on house info
           </p>
-          <a href="">
+          <a href="{{url_for('estimatee')}}">
             <button
               class="bg-customGreen text-white px-6 py-2 rounded-md hover:bg-[#003c4397] flex items-center space-x-2"
             >

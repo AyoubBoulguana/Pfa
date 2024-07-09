@@ -148,7 +148,7 @@
         <button
           class="bg-customGreen text-white text-[10px] sm:text-xl font-semibold px-4 py-2 sm:px-6 sm:py-3 rounded transition duration-300 ease-in-out hover:bg-opacity-80 hover:text-opacity-80"
         >
-          <a href="#">Discover more</a>
+          <a href="{{ url_for('sell') }}">Discover more</a>
         </button>
       </div>
     </section>
@@ -251,7 +251,7 @@
             provides you with an accurate estimate of your house's value based
             on house info
           </p>
-          <a href="">
+          <a href="{{url_for('estimatee')}}">
             <button
               class="bg-customGreen text-white px-6 py-2 rounded-md hover:bg-[#003c4397] flex items-center space-x-2"
             >
