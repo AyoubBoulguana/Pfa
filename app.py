@@ -344,6 +344,8 @@ def registration():
     
     return render_template('registration.html')
 
+# set and integrat ai
+
 model_file = open('model.pkl', 'rb')
 model = pickle.load(model_file)
 model_file.close()
